@@ -1,4 +1,4 @@
-import log from './logger';
+import {log} from './logger';
 
 export function handleError(error: any): void {
     if (error instanceof Error) {

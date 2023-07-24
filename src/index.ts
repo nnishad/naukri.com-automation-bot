@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import log from './utility/logger';
+import {log} from './utility/logger';
 import {handleError} from './utility/errorHandler';
 import {XPaths} from './utility/constants';
 import {randomWait} from './utility/util';
@@ -27,7 +27,6 @@ async function doAutomation() {
         await page.click(XPaths.loginButton);
 
         log('Clicked on the "Jobseeker Login" button.');
-
     } catch (error: any) {
         handleError(error);
     } finally {
