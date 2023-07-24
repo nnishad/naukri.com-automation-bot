@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import {log} from './utility/logger';
 import {handleError} from './utility/errorHandler';
 import {XPaths} from './utility/constants';
-import {randomWait} from './utility/util';
+import {getElementAndClick, getElementAndType, randomWait, waitSeconds} from './utility/util';
 import {getBrowser, getPage} from "./core/puppeteerInstance";
 
 dotenv.config();
@@ -20,13 +20,24 @@ async function doAutomation() {
         // Wait for a random period between 0.1 and 5 seconds (optional)
         await randomWait();
 
-        // Wait for the element with id "login_Layer" and title "Jobseeker Login" to appear
-        await page.waitForSelector(XPaths.loginButton);
+        await getElementAndClick(page, XPaths.loginButton);
 
-        // Click on the element
-        await page.click(XPaths.loginButton);
+        log('Clicked on the "Jobseeker Login" button.')
 
-        log('Clicked on the "Jobseeker Login" button.');
+
+        // Perform actions on the email input element using the getElementAndType utility function
+        // Get the email and password from environment variables with null checks
+        const yourEmailAddress = process.env.YOUR_EMAIL_ADDRESS;
+        const yourPassword = process.env.YOUR_PASSWORD;
+
+        if (!yourEmailAddress || !yourPassword) {
+            throw new Error('Email address and password environment variables are not set.');
+        }
+
+        await getElementAndType(page, XPaths.emailInput, yourEmailAddress);
+        log(`Entered email address: ${yourEmailAddress}`);
+
+        await waitSeconds(10)
     } catch (error: any) {
         handleError(error);
     } finally {
