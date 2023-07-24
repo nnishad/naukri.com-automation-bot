@@ -1,6 +1,8 @@
-// constants.ts
 export const XPaths = {
-    loginButton: 'a#login_Layer[title="Jobseeker Login"]',
+    loginPopUpButton: 'a#login_Layer[title="Jobseeker Login"]',
     emailInput: 'input[placeholder="Enter your active Email ID / Username"]',
-    // Add other XPaths if needed
+    passwordInput: 'input[placeholder="Enter your password"]',
+    loginButton: '//button[@type="submit" and text()="Login"]',
+    otpVerifyButton: '//button[text()="VERIFY"]',
+
 };

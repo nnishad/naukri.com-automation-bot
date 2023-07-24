@@ -64,3 +64,21 @@ export async function getElementAndClick(page: Page, xpath: string): Promise<voi
     await element.click();
     await randomWait(); // Optionally wait for a random period after clicking
 }
+
+
+// Utility function to enter OTP in the input fields
+export const enterOTP = async (page: Page, otp: string): Promise<void> => {
+    // Loop through the OTP and type each digit into the input fields
+    for (let i = 0; i < otp.length; i++) {
+        const inputField = await page.waitForSelector(`#Input_${i + 1}`);
+        if (!inputField) {
+            throw new Error(`Input field for digit ${i + 1} not found.`);
+        }
+        await inputField.type(otp[i]);
+    }
+
+    log(`Entered OTP: ${otp}`);
+
+    // Optionally wait for a random period between 0.1 and 5 seconds (optional)
+    await randomWait();
+}
